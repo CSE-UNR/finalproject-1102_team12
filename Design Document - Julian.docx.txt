@@ -1,0 +1,92 @@
+﻿Julian Cardiel
+
+
+4/28/2024
+
+
+Computer Science 135
+        
+Design Document
+
+
+Final Project Design
+
+
+Data
+
+
+Image Size – 2D Array of ints (1080 x 1080)
+File Pointers – Brightness, Image Size, Edited Image
+Rendering - char
+Crop Choice – Int
+File Name – Array of Strings 
+
+
+How it Works
+
+
+User is prompted from choices: load new image, display current image, edit image, exit program.
+Loading new image will pull contents from file name provided by user. If image is edited it may be cropped, dimmed, brightened, or rotated. Cropping displays a smaller section the image and user can select what section they want displayed. Brightening and dimming the image will affect each pixel of the image respectively. Rotating the image 90 degrees will move each pixel to a different location. After one option is chosen the user’s edited image will be saved to a file, and the user will be given an option to create a new image all over again. 
+
+
+Functions
+
+
+Main()
+Data: Array for the image and brightness. Variable for choice, file pointer, rendering.
+Functionality: Get image details from the file. In switch statement and loop, display menu choices. Edit image and prompt to save image to file. Prompt to create new image. Switch statement for executing editing image commands. 
+
+loadImage()
+Input Parameters: File pointer brightness, int row, int columns, int image size[]
+Returned Output: none
+Functionality: Load values from file into image 2D array
+
+
+displayImage()
+Input Parameters: int image size[], int row, int columns
+Returned Output: none
+Functionality: Nested Loop which accesses each array element displaying the image
+
+
+
+
+getMenuChoiceImage()
+Input Parameters: none
+Returned Output: userchoice
+Functionality: Display a menu for the choices that the user must decide what the user wants to do with their image. Prompt user for choice.
+
+
+getEditMenuChoice()
+Input Parameters: none
+Returned Output: userchoice
+Functionality: Display edit menu choice so user can decide how they want to edit their image.P Prompt the user for choice chosen.
+
+
+promptCropImage()
+Input Parameters: image size[], int columns, int rows, newimagesize[]
+Returned Output: none
+Functionality: Prompt user to decide which portion of the image they want cropped. With a nested for loop iterating to the exact cropped size. Then displaying the new image with the same nested for loop.
+
+
+dimImage()
+Input Parameters: image size[], int columns, int rows, char rendering
+Returned Output: none
+Functionality: Nested for loop accessing every element in the 2D array and iterating the rendering variable backwards by one to dim to image. Display new image using nested for loop. 
+
+
+brightenImage()
+Input Parameters: image size[], int columns, int rows, char rendering
+Returned Output: none
+Functionality: Nested for loop accessing every element in the 2D array and iterating the rendering variable to brighten the image which is shown in the table provided. Display new image using nested for loop.
+
+
+rotateImage()
+Input Parameters: imagesize[], int columns, int rows
+Returned Output: none
+Functionality: Nested for loop, but instead flip rows and columns loops respectively.
+
+
+displayEditedImageFile()
+Input Parameters imagesize[], int columns, int rows, File pointer
+Returned Output: none
+Functionality: If file pointer does not equal the null character access each element of the 2D array and print the image in the file. Else print the edited image in terminal.
