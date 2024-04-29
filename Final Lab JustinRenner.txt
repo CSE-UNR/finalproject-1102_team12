@@ -1,0 +1,65 @@
+﻿Your program should include the following features and functionality:
+
+
+choose from a menu 
+
+
+load a new image: the program should attempt to read the contents of an image of any "size" from a file name they provide
+display the current image
+
+
+exit the program
+
+
+If the user chooses to edit the current image, they should be able to choose from another menu which must include the following options. The new version of the image should be displayed each time.
+Crop: provide the user with a way to specify which smaller section of the original image they would like to use to create an edited image
+Dim:create an edited image where each pixel is one step "dimmer"
+Brighten: create an edited image where each pixel is one step "brighter"
+
+
+Extra Credit: rotate 90 degrees
+create an edited image where every pixel in the image has been moved to a new location to create the "rotation" effect
+Note: Extra Credit tasks will not be considered for grading unless all other requirements have been met.
+After completing one of the above options, the user should be prompted to save their edited image to a file. 
+If they agree, they should be prompted for a file name
+Once the edited image is saved, they should be returned to the first menu
+
+
+Design Document Requirements:
+Include an algorithm for the main function
+
+Main()
+Data: Char to store input,file, 2d array
+Functionality: Display Menu, Prompt User to Choose Option(Display, Load Image, Edit Image, Exit Program), Run Given Function Based on User Input. 
+
+Include algorithms for each additional function required 6 
+
+
+Function: 
+LOADIMAGE()
+Data: File, Row to keep track of number of rows, Col to keep track of Columns. 2d array keep track of every value in x by x 
+Function: Prompt File Location/Name, attempt to read file,  Save information to 2d array and close the file, return the info in the file
+CROP()
+Data: 2d Array of image, Row to be used to crop at said row, Col to crop as said column
+Functionality: Prompt user to put in a row to crop up to, display cropped image, Prompt user to put in a Column to crop up to, Display Cropped Image, Prompt user if they want to crop again, Save new Cropped image. 
+
+DIM: 
+Data: 2d Array of image, Char to Store either Dim or Brighten choice, 
+Functionality: Prompt user to either Dim or Brighten, run through each row and swap the value with the new value, display new image, Save image,
+
+
+DISPLAY IMAGE
+Data: 2d Array of image
+Functionality: gets 2d array, Displays array of image
+
+
+EDIT IMAGE
+Data: Char to store input,file, 2d array
+Functionality: Display Menu, Prompt User to Choose Option (Dim or Crop), Run Given Function Based on User Input. 
+
+
+SAVE AND EXIT PROGRAM
+
+
+Data: file, 2d array
+Functionality: Save the new 2d array to new file and end program
