@@ -16,11 +16,15 @@ void displayImage(int *Rows, int *Col, char ImageArray[][Max_Col]);
 
 void ProcessImage(int *Rows, int *Col, char Arr[][Max_Col], char ProArr[][Max_Col]);
 
+void BrightImage(int *Rows, int *Col, char ProArr[][Max_Col]);
+
+void DimImage(int *Rows, int *Col, char ProArr[][Max_Col]);
+
 int main(){
 	
 	//user Choice
 	int choice;
-	
+	int choiceTwo;
 	//end Program Bool
 	_Bool End = 0;
 	
@@ -55,11 +59,9 @@ int main(){
 
 				//Process Image
 				ProcessImage(&ProR, &ProC, Image, ProImage);
-				printf("______________________________________\n\n");
-
+				
 				displayImage(&ProR,&ProC,ProImage);
 				
-				printf("______________________________________\n");
 				break;
 				
 
@@ -67,6 +69,32 @@ int main(){
 			//Edit Image
 			case 2: 
 				printf("\n\nEditing Image\n\n");
+				
+				printf("Please Choose an Editing Option(1,2)\n");
+				printf("1. Brighten Image\n");
+				printf("2. Dim Image\n");
+				
+				//User Input
+				scanf("%d", &choiceTwo);
+				
+					//Brighten Image
+					if(choiceTwo == 1){
+					
+						BrightImage(&ProR,&ProC,ProImage);
+						displayImage(&ProR,&ProC,ProImage);
+					
+					//Dim Image
+					}else if(choiceTwo == 2){
+					
+						DimImage(&ProR,&ProC,ProImage);
+						displayImage(&ProR,&ProC,ProImage);
+					
+					//Error
+					}else{
+					
+					printf("\n\nInvalid Option\n\n");
+					}
+				
 				break;
 				
 			//Closing Program
@@ -149,7 +177,7 @@ void LoadImage(int *ProR, int *ProC, char ImageArray[][Max_Col]){
 //PROCESSING Array
 void ProcessImage(int *Rows, int *Col, char Arr[][Max_Col], char ProArr[][Max_Col]){
 
-char CurChar;
+int CurChar;
 	
 	//transfers Numbers to brightness
 	for(int i = 0; i < *Rows; i++){
@@ -192,11 +220,99 @@ char CurChar;
 //DISPLAYING Raw Data IMAGE
 void displayImage(int *Rows, int *Col, char ImageArray[][Max_Col]){
 		
+	printf("______________________________________\n\n");		
+		
 	for(int i = 0; i < *Rows; i++){
 		for(int j = 0; j < *Col; j++){
 			printf("%c",ImageArray[i][j]);
 		}
 		printf("\n");
-	}	
+	}
+	
+	printf("______________________________________\n\n");	
+}
+
+//Brightening Image
+void BrightImage(int *Rows, int *Col, char ProArr[][Max_Col]){
+
+int CurValue;
+	
+	//Brightens Image
+	for(int i = 0; i < *Rows; i++){
+		for(int j = 0; j < *Col; j++){
+			
+		CurValue = ProArr[i][j];
+			
+			switch(CurValue){
+			
+			case 32:
+				ProArr[i][j] = '.';
+				break;
+				
+			case 46:
+				ProArr[i][j] = 'o';
+				break;
+				
+			case 111:
+				ProArr[i][j] = 'O';
+				break;
+				
+			case 79: 
+				ProArr[i][j] = '0';
+				break;
+				
+			case 48:
+				ProArr[i][j] = '0';
+				break;
+				
+			default: 
+				printf("ERROR ON Row %d, Column %d\n", i,j);
+				break;
+			}
+		}
+	}
+
+}
+
+//Dim Image
+void DimImage(int *Rows, int *Col, char ProArr[][Max_Col]){
+
+int CurValue;
+	
+	//Brightens Image
+	for(int i = 0; i < *Rows; i++){
+		for(int j = 0; j < *Col; j++){
+			
+		CurValue = ProArr[i][j];
+			
+			switch(CurValue){
+			
+			case 32:
+				ProArr[i][j] = ' ';
+				break;
+				
+			case 46:
+				ProArr[i][j] = ' ';
+				break;
+				
+			case 111:
+				ProArr[i][j] = '.';
+				break;
+				
+			case 79: 
+				ProArr[i][j] = 'o';
+				break;
+				
+			case 48:
+				ProArr[i][j] = 'O';
+				break;
+				
+			default: 
+				printf("ERROR ON Row %d, Column %d\n", i,j);
+				break;
+			}
+		}
+	}
+
 }
 
