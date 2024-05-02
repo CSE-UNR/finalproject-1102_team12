@@ -20,11 +20,16 @@ void BrightImage(int *Rows, int *Col, char ProArr[][Max_Col]);
 
 void DimImage(int *Rows, int *Col, char ProArr[][Max_Col]);
 
+void CropImage(int *Rows, int *Col, char ProArr[][Max_Col]);
+
+void SaveImage(int *Rows, int *Col, char ProArr[][Max_Col]);
+
 int main(){
 	
 	//user Choice
 	int choice;
 	int choiceTwo;
+	int save;
 	//end Program Bool
 	_Bool End = 0;
 	
@@ -37,7 +42,7 @@ int main(){
 	//does this while End is false
 	do{
 	//Print to screen
-	printf("***0^ Image Editor ^0***\n\n");
+	printf("\n\n***0^ Image Editor ^0***\n\n");
 	printf("Please input one of the Following Choices (1,2,3):\n\n");
 	printf("1. Load Image\n");
 	printf("2. Edit Image\n");	
@@ -59,43 +64,61 @@ int main(){
 
 				//Process Image
 				ProcessImage(&ProR, &ProC, Image, ProImage);
-				
-				displayImage(&ProR,&ProC,ProImage);
-				
+					
+					if(ProImage[0][0] != 0){
+						displayImage(&ProR,&ProC,ProImage);
+					}
 				break;
 				
 
 	
 			//Edit Image
 			case 2: 
-				printf("\n\nEditing Image\n\n");
+			
+				if(ProImage[0][0] == 0){
+					printf("\nNo Image Loaded");			
+				}else{
+					printf("\n\nEditing Image\n\n");
 				
-				printf("Please Choose an Editing Option(1,2)\n");
-				printf("1. Brighten Image\n");
-				printf("2. Dim Image\n");
-				
-				//User Input
-				scanf("%d", &choiceTwo);
-				
-					//Brighten Image
-					if(choiceTwo == 1){
+					printf("Please Choose an Editing Option(1,2,3)\n");
+					printf("1. Brighten Image\n");
+					printf("2. Dim Image\n");
+					printf("3. Crop Image\n");
 					
-						BrightImage(&ProR,&ProC,ProImage);
-						displayImage(&ProR,&ProC,ProImage);
+					//User Input
+					scanf("%d", &choiceTwo);
 					
-					//Dim Image
-					}else if(choiceTwo == 2){
-					
-						DimImage(&ProR,&ProC,ProImage);
-						displayImage(&ProR,&ProC,ProImage);
-					
-					//Error
-					}else{
-					
-					printf("\n\nInvalid Option\n\n");
-					}
-				
-				break;
+						//Brighten Image
+						if(choiceTwo == 1){
+						
+							BrightImage(&ProR,&ProC,ProImage);
+							displayImage(&ProR,&ProC,ProImage);
+						
+						//Dim Image
+						}else if(choiceTwo == 2){
+						
+							DimImage(&ProR,&ProC,ProImage);
+							displayImage(&ProR,&ProC,ProImage);
+						
+						//Crop Image
+						}else if(choiceTwo == 3){
+						
+							CropImage(&ProR,&ProC,ProImage);
+							displayImage(&ProR,&ProC,ProImage);
+						
+						//Error
+						}else{
+						
+							printf("\n\nInvalid Option\n\n");
+						}
+						
+						printf("Would you like to Save The Image?(1 - Yes, 2 - No)\n");
+						scanf("%d"&save);
+						
+							if(save == 1){
+								SaveImage(&ProR,&ProC,ProImage);
+							}	
+					break;
 				
 			//Closing Program
 			case 3:
@@ -178,6 +201,7 @@ void LoadImage(int *ProR, int *ProC, char ImageArray[][Max_Col]){
 void ProcessImage(int *Rows, int *Col, char Arr[][Max_Col], char ProArr[][Max_Col]){
 
 int CurChar;
+int ValidImage = 0;
 	
 	//transfers Numbers to brightness
 	for(int i = 0; i < *Rows; i++){
@@ -208,12 +232,25 @@ int CurChar;
 				break;
 				
 			default: 
-				printf("ERROR ON Row %d, Column %d\n", i,j);
+			
+				ValidImage = 1;
 				break;
 			}
 		}
 	}
-				
+	
+	if(ValidImage == 1){
+	
+		printf("\n\nImage is Invalid please input a Valid Image or Fix Your Image\n");
+	
+		//Reset array
+		for(int i = 0; i < *Rows; i++){
+			for(int j = 0; j< *Col; j++){
+				Arr[i][j] = 0;
+				ProArr[i][j] = 0;
+			}
+		}
+	}				
 }
 
 
@@ -274,6 +311,7 @@ int CurValue;
 
 }
 
+
 //Dim Image
 void DimImage(int *Rows, int *Col, char ProArr[][Max_Col]){
 
@@ -315,4 +353,79 @@ int CurValue;
 	}
 
 }
+
+
+void CropImage(int *Rows, int *Col, char ProArr[][Max_Col]){
+
+	int CropR = 0;
+	int CropC = 0;
+	int ValidR = 0;
+	int ValidC = 0;
+	int Valid = 0;
+	int nRows = 0, nCols = 0;
+
+
+		//keeps asking till valid number
+		do{
+			do{
+				printf("What Row would you like to Crop at?\nThe First Row Starts at 0\n\n");
+				scanf("%d", &CropR);
+	
+					//Checks if valid row to crop
+					if(CropR > *Rows){
+						printf("Your Image is smaller than than where you want to crop on Rows\n\n");
+						ValidR = 0;
+					}else{
+						ValidR =1;
+					}
+			}while(ValidR == 0);
+			
+			
+			do{
+				printf("What Column would you like to Crop at?\nThe First Column Starts at 0\n\n");
+				scanf("%d", &CropC);
+				
+					
+					//Checks if Valid Columns
+					if(CropC > *Col){
+						printf("Your Image is smaller than than where you want to crop on Columns\n\n");
+						ValidC = 0;
+					}else{
+						ValidC =1;
+					}
+			}while(ValidC == 0);	
+			
+				printf("You want to Crop at Row: %d\n You want to Crop at Column: %d\n Is this Correct? (1-Yes 2-No)\n\n", CropR, CropC);
+				scanf("%d",&Valid);
+
+		}while(Valid != 1);
+
+	//goes through array and checks if its greater than crop location
+	for (int i = 0; i < *Rows; i++){
+		for(int j = 0; j < *Col; j++){
+			if(i >= CropR || j >= CropC){
+			
+				ProArr[i][j] = 0;
+			}
+		}
+	}
+				//Makes New Max Row And Collumn
+	for(nRows = 0; ProArr[nRows][0] != '\0' && ProArr[nRows][0] != '\n'; nRows++){}
+		*Rows = nRows;
+				
+	for(nCols = 0; ProArr[0][nCols] != '\0' && ProArr[0][nCols] != '\n'; nCols++){}
+		*Col = nCols;	
+}
+		
+void SaveImage(int *Rows, int *Col, char ProArr[][Max_Col]){
+
+	FILE *FP;
+	char FileName[1000];
+
+		//ask for file name
+		printf("Please put in the File Name you wish to save to\n");
+		scanf("%s", FileName);
+
+		FP = fopen(FileName, "w");
+}		
 
