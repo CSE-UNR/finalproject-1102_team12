@@ -113,11 +113,12 @@ int main(){
 						}
 						
 						printf("Would you like to Save The Image?(1 - Yes, 2 - No)\n");
-						scanf("%d"&save);
+						scanf("%d",&save);
 						
 							if(save == 1){
 								SaveImage(&ProR,&ProC,ProImage);
 							}	
+					}
 					break;
 				
 			//Closing Program
@@ -427,5 +428,20 @@ void SaveImage(int *Rows, int *Col, char ProArr[][Max_Col]){
 		scanf("%s", FileName);
 
 		FP = fopen(FileName, "w");
+		
+		//NO SUCH FILE
+			if(FP == NULL){
+
+				printf("Error Opening File. \n");
+			}
+		
+		for(int i = 0; i < *Rows; i++){
+			for(int j = 0; j < *Col; j++){
+				fprintf(FP,"%c",ProArr[i][j]);
+			}
+			fprintf(FP, "\n");
+		}
+		
+		fclose(FP);
 }		
 
