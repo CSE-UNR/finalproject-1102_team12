@@ -156,7 +156,7 @@ void LoadImage(int *ProR, int *ProC, char ImageArray[][Max_Col]){
 		}
 	
 		//ask for file name
-		printf("Please put in the File Name\n");
+		printf("Please put in the File Name Do Not include File Type (Ex: .txt, .Png ECT)\n");
 		scanf("%s", FileName);
 		
 		//Opens File or Errors
@@ -188,7 +188,17 @@ void LoadImage(int *ProR, int *ProC, char ImageArray[][Max_Col]){
 				
 					
 				for(Cols = 0; ImageArray[0][Cols] != '\0' && ImageArray[0][Cols] != '\n'; Cols++){}
-					*ProC = Cols;		
+					*ProC = Cols;	
+					
+					
+				//PRINTS Numbers In Array
+
+				for(int i = 0; i < Rows; i++){
+					for(int j = 0; j < Cols; j++){
+						printf("%c",ImageArray[i][j]);
+					}
+				printf("\n");
+				}	
 			}
 			
 }	
