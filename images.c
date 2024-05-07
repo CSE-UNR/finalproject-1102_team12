@@ -432,6 +432,7 @@ void SaveImage(int *Rows, int *Col, char ProArr[][Max_Col]){
 
 	FILE *FP;
 	char FileName[1000];
+	int CurChar;
 
 		//ask for file name
 		printf("Please put in the File Name you wish to save to\n");
@@ -447,11 +448,45 @@ void SaveImage(int *Rows, int *Col, char ProArr[][Max_Col]){
 		
 		for(int i = 0; i < *Rows; i++){
 			for(int j = 0; j < *Col; j++){
-				fprintf(FP,"%c",ProArr[i][j]);
+				
+				
+		
+				CurChar = ProArr[i][j];
+			
+				switch(CurChar){
+			
+				case 32:
+					fprintf(FP, "0");
+					break;
+				
+				case 46:
+					fprintf(FP, "1");
+					break;
+				
+				case 111:
+					fprintf(FP, "2");
+					break;
+				
+				case 79: 
+					fprintf(FP, "3");
+					break;
+				
+				case 48:
+					fprintf(FP, "4");
+					break;
+				
+				
+				}
 			}
 			fprintf(FP, "\n");
 		}
+				
+					
+		
 		
 		fclose(FP);
-}		
+			
+}
 
+
+	
